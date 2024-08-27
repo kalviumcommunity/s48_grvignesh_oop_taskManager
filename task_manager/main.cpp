@@ -52,20 +52,25 @@ public:
 
 int main()
 {
-    Task task1("Design UI", true, "Create mockups for the new user interface.");
-    Task task2("Develop Backend", false, "Implement API endpoints and database connections.");
+    Task tasks[] = {
+        Task("Design UI", true, "Create mockups for the new user interface."),
+        Task("Develop Backend", false, "Implement API endpoints and database connections.")};
 
-    Project project1("Website Redesign", "Development", "2024-12-31", "TechCorp");
-    Project project2("API Development", "Research", "2024-10-15", "InnovaTech");
+    Project projects[] = {
+        Project("Website Redesign", "Development", "2024-12-31", "TechCorp"),
+        Project("API Development", "Research", "2024-10-15", "InnovaTech")};
 
-    task1.displayTask();
-    cout << endl;
-    task2.displayTask();
+    for (const auto &task : tasks)
+    {
+        task.displayTask();
+        cout << endl;
+    }
 
-    cout << endl;
-    project1.displayProject();
-    cout << endl;
-    project2.displayProject();
+    for (const auto &project : projects)
+    {
+        project.displayProject();
+        cout << endl;
+    }
 
     return 0;
 }
