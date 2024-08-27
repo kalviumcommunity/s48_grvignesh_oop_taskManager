@@ -11,7 +11,11 @@ public:
     string description;
 
     Task(const string &taskTitle, bool taskPriority, const string &taskDescription)
-        : title(taskTitle), priority(taskPriority), description(taskDescription) {}
+    {
+        this->title = taskTitle;
+        this->priority = taskPriority;
+        this->description = taskDescription;
+    }
 
     void displayTask() const
     {
@@ -30,7 +34,12 @@ public:
     string company;
 
     Project(const string &projectName, const string &projectType, const string &projectDeadline, const string &projectCompany)
-        : name(projectName), type(projectType), deadline(projectDeadline), company(projectCompany) {}
+    {
+        this->name = projectName;
+        this->type = projectType;
+        this->deadline = projectDeadline;
+        this->company = projectCompany;
+    }
 
     void displayProject() const
     {
