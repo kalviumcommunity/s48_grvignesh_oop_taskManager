@@ -1,5 +1,3 @@
-Here's the updated README file for your project:
-
 ---
 
 # **Task_Manager**
