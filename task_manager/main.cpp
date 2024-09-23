@@ -11,11 +11,15 @@ public:
     bool priority;
     string description;
 
+    // Static variable to count tasks
+    static int taskCount;
+
     Task(const string &taskTitle, bool taskPriority, const string &taskDescription)
     {
         this->title = taskTitle;
         this->priority = taskPriority;
         this->description = taskDescription;
+        taskCount++; // Increment count whenever a task is created
     }
 
     void displayTask() const
@@ -24,7 +28,15 @@ public:
         cout << "Priority: " << (priority ? "High" : "Low") << endl;
         cout << "Description: " << description << endl;
     }
+
+    static int getTaskCount() // Static method to access task count
+    {
+        return taskCount;
+    }
 };
+
+// Initialize static variable
+int Task::taskCount = 0;
 
 class Project
 {
@@ -34,12 +46,16 @@ public:
     string deadline;
     string company;
 
+    // Static variable to count projects
+    static int projectCount;
+
     Project(const string &projectName, const string &projectType, const string &projectDeadline, const string &projectCompany)
     {
         this->name = projectName;
         this->type = projectType;
         this->deadline = projectDeadline;
         this->company = projectCompany;
+        projectCount++; // Increment count whenever a project is created
     }
 
     void displayProject() const
@@ -49,39 +65,44 @@ public:
         cout << "Deadline: " << deadline << endl;
         cout << "Company: " << company << endl;
     }
+
+    static int getProjectCount() // Static method to access project count
+    {
+        return projectCount;
+    }
 };
+
+// Initialize static variable
+int Project::projectCount = 0;
 
 int main()
 {
-    // Dynamically allocate tasks
     Task *task1 = new Task("Design UI", true, "Create mockups for the new user interface.");
     Task *task2 = new Task("Develop Backend", false, "Implement API endpoints and database connections.");
 
-    // Store tasks in a vector for easier management
     vector<Task *> tasks = {task1, task2};
 
-    // Dynamically allocate projects
     Project *project1 = new Project("Website Redesign", "Development", "2024-12-31", "TechCorp");
     Project *project2 = new Project("API Development", "Research", "2024-10-15", "InnovaTech");
 
-    // Store projects in a vector
     vector<Project *> projects = {project1, project2};
 
-    // Display tasks
     for (const auto &task : tasks)
     {
         task->displayTask();
         cout << endl;
     }
 
-    // Display projects
     for (const auto &project : projects)
     {
         project->displayProject();
         cout << endl;
     }
 
-    // Clean up allocated memory
+    // Display the total counts
+    cout << "Total Tasks: " << Task::getTaskCount() << endl;
+    cout << "Total Projects: " << Project::getProjectCount() << endl;
+
     for (auto task : tasks)
     {
         delete task;
