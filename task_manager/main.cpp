@@ -11,7 +11,6 @@ public:
     bool priority;
     string description;
 
-    // Static variable to count tasks
     static int taskCount;
 
     Task(const string &taskTitle, bool taskPriority, const string &taskDescription)
@@ -19,7 +18,7 @@ public:
         this->title = taskTitle;
         this->priority = taskPriority;
         this->description = taskDescription;
-        taskCount++; // Increment count whenever a task is created
+        taskCount++;
     }
 
     void displayTask() const
@@ -29,7 +28,7 @@ public:
         cout << "Description: " << description << endl;
     }
 
-    static int getTaskCount() // Static method to access task count
+    static int getTaskCount() // Static member function
     {
         return taskCount;
     }
@@ -46,7 +45,6 @@ public:
     string deadline;
     string company;
 
-    // Static variable to count projects
     static int projectCount;
 
     Project(const string &projectName, const string &projectType, const string &projectDeadline, const string &projectCompany)
@@ -55,7 +53,7 @@ public:
         this->type = projectType;
         this->deadline = projectDeadline;
         this->company = projectCompany;
-        projectCount++; // Increment count whenever a project is created
+        projectCount++;
     }
 
     void displayProject() const
@@ -66,7 +64,7 @@ public:
         cout << "Company: " << company << endl;
     }
 
-    static int getProjectCount() // Static method to access project count
+    static int getProjectCount()
     {
         return projectCount;
     }
@@ -99,7 +97,7 @@ int main()
         cout << endl;
     }
 
-    // Display the total counts
+    // Use the static member function
     cout << "Total Tasks: " << Task::getTaskCount() << endl;
     cout << "Total Projects: " << Project::getProjectCount() << endl;
 
