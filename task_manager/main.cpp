@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -52,24 +53,42 @@ public:
 
 int main()
 {
-    Task tasks[] = {
-        Task("Design UI", true, "Create mockups for the new user interface."),
-        Task("Develop Backend", false, "Implement API endpoints and database connections.")};
+    // Dynamically allocate tasks
+    Task *task1 = new Task("Design UI", true, "Create mockups for the new user interface.");
+    Task *task2 = new Task("Develop Backend", false, "Implement API endpoints and database connections.");
 
-    Project projects[] = {
-        Project("Website Redesign", "Development", "2024-12-31", "TechCorp"),
-        Project("API Development", "Research", "2024-10-15", "InnovaTech")};
+    // Store tasks in a vector for easier management
+    vector<Task *> tasks = {task1, task2};
 
+    // Dynamically allocate projects
+    Project *project1 = new Project("Website Redesign", "Development", "2024-12-31", "TechCorp");
+    Project *project2 = new Project("API Development", "Research", "2024-10-15", "InnovaTech");
+
+    // Store projects in a vector
+    vector<Project *> projects = {project1, project2};
+
+    // Display tasks
     for (const auto &task : tasks)
     {
-        task.displayTask();
+        task->displayTask();
         cout << endl;
     }
 
+    // Display projects
     for (const auto &project : projects)
     {
-        project.displayProject();
+        project->displayProject();
         cout << endl;
+    }
+
+    // Clean up allocated memory
+    for (auto task : tasks)
+    {
+        delete task;
+    }
+    for (auto project : projects)
+    {
+        delete project;
     }
 
     return 0;
