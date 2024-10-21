@@ -2,6 +2,7 @@
 #define PROJECT_HPP
 
 #include <string>
+#include <iostream>
 using namespace std;
 
 class Project
@@ -14,13 +15,41 @@ private:
     static int projectCount; // private static member
 
 public:
-    Project(const string &projectName, const string &projectType, const string &projectDeadline, const string &projectCompany);
-    ~Project();
+    // Default constructor
+    Project() : name("Unnamed"), type("Unknown"), deadline("No deadline"), company("Unknown")
+    {
+        projectCount++;
+    }
 
-    void displayProject() const;
+    // Parameterized constructor
+    Project(const string &projectName, const string &projectType, const string &projectDeadline, const string &projectCompany)
+        : name(projectName), type(projectType), deadline(projectDeadline), company(projectCompany)
+    {
+        projectCount++;
+    }
 
-    // Getter functions for project count
-    static int getProjectCount();
+    // Destructor
+    ~Project()
+    {
+        projectCount--;
+    }
+
+    void displayProject() const
+    {
+        cout << "Project Name: " << name << endl;
+        cout << "Project Type: " << type << endl;
+        cout << "Deadline: " << deadline << endl;
+        cout << "Company: " << company << endl;
+    }
+
+    // Getter function for project count
+    static int getProjectCount()
+    {
+        return projectCount;
+    }
 };
 
-#endif // PROJECT_HPP
+// Initialize static member
+int Project::projectCount = 0;
+
+#endif
