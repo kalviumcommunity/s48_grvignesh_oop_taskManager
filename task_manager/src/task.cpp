@@ -1,34 +1,37 @@
 #include "task.hpp"
-#include <iostream>
 
-using namespace std;
-
-// Initialize static member
 int Task::taskCount = 0;
 
-// Constructor implementation
+// Default constructor
+Task::Task()
+    : title("Untitled Task"), priority(false), description("No description provided")
+{
+    taskCount++;
+    cout << "Default constructor called. Task created." << endl;
+}
+
+// Parameterized constructor
 Task::Task(const string &taskTitle, bool taskPriority, const string &taskDescription)
     : priority(taskPriority), description(taskDescription)
 {
-    // Use the validation method to set the title
     if (isTitleValid(taskTitle))
     {
         title = taskTitle;
     }
     else
     {
-        title = "Untitled Task"; // Default title for invalid input
+        title = "Untitled Task"; // Default title if invalid input
     }
 
-    // Increment task count when a task is created
     taskCount++;
+    cout << "Parameterized constructor called. Task created with title: " << title << endl;
 }
 
-// Destructor implementation
+// Destructor
 Task::~Task()
 {
-    // Decrement task count when a task is destroyed
     taskCount--;
+    cout << "Destructor called. Task destroyed." << endl;
 }
 
 // Display task details
@@ -39,13 +42,13 @@ void Task::displayTask() const
     cout << "Description: " << description << endl;
 }
 
-// Static method to get the current task count
+// Static method to get task count
 int Task::getTaskCount()
 {
     return taskCount;
 }
 
-// Private method to validate the task title
+// Private method to validate title
 bool Task::isTitleValid(const string &taskTitle) const
 {
     return !taskTitle.empty();
