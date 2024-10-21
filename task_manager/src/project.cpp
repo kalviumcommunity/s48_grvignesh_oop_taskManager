@@ -12,7 +12,7 @@ Project::Project(const string &projectName, const string &projectType, const str
 
 Project::~Project()
 {
-    projectCount--; // Decrease project count when project is destroyed
+    projectCount--;
 }
 
 void Project::displayProject() const
