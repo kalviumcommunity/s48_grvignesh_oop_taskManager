@@ -6,12 +6,12 @@ using namespace std;
 
 int main()
 {
-    // Create Task objects
+    // Create Task objects dynamically
     Task *task1 = new Task("Design UI", true, "Create mockups for the new user interface.");
     Task *task2 = new Task("Develop Backend", false, "Implement API endpoints and database connections.");
     vector<Task *> tasks = {task1, task2};
 
-    // Create Project objects
+    // Create Project objects dynamically
     Project *project1 = new Project("Website Redesign", "Development", "2024-12-31", "TechCorp");
     Project *project2 = new Project("API Development", "Research", "2024-10-15", "InnovaTech");
     vector<Project *> projects = {project1, project2};
