@@ -1,30 +1,20 @@
-#include "project.hpp"
-#include <iostream>
+// #include <iostream>
+// #include <string>
 
-// Initialize static member
-int Project::projectCount = 0;
+// class Project : public Task {
+// public:
+//     Project(const std::string& title, const std::string& description, const std::string& deadline, const std::string& company)
+//         : Task(title, description), deadline_(deadline), company_(company) {}
 
-Project::Project(const string &projectName, const string &projectType, const string &projectDeadline, const string &projectCompany)
-    : name(projectName), type(projectType), deadline(projectDeadline), company(projectCompany)
-{
-    projectCount++;
-}
+//     const std::string& getDeadline() const {
+//         return deadline_;
+//     }
 
-Project::~Project()
-{
-    projectCount--;
-}
+//     const std::string& getCompany() const {
+//         return company_;
+//     }
 
-void Project::displayProject() const
-{
-    cout << "Project Name: " << name << endl;
-    cout << "Type: " << type << endl;
-    cout << "Deadline: " << deadline << endl;
-    cout << "Company: " << company << endl;
-}
-
-// Static function to get project count
-int Project::getProjectCount()
-{
-    return projectCount;
-}
+// private:
+//     std::string deadline_;
+//     std::string company_;
+// };
