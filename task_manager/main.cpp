@@ -6,17 +6,18 @@ using namespace std;
 
 class Task {
 public:
-    Task(const string& title, const string& description) : title_(title), description_(description), isCompleted_(false) {}
+    Task(const string& title, const string& description) : title_(title), description_(description) {}
+
+    virtual ~Task() = default; // Virtual destructor for proper polymorphic behavior
 
     const string& getTitle() const { return title_; }
     const string& getDescription() const { return description_; }
-    bool isCompleted() const { return isCompleted_; }
-    void markAsCompleted() { isCompleted_ = true; }
 
-private:
+    virtual void printDetails() const = 0; // Pure virtual function
+
+protected:
     string title_;
     string description_;
-    bool isCompleted_;
 };
 
 class Project : public Task {
@@ -24,8 +25,12 @@ public:
     Project(const string& title, const string& description, const string& deadline, const string& company) 
         : Task(title, description), deadline_(deadline), company_(company) {}
 
-    const string& getDeadline() const { return deadline_; }
-    const string& getCompany() const { return company_; }
+    void printDetails() const override {
+        cout << "Title: " << getTitle() << endl;
+        cout << "Description: " << getDescription() << endl;
+        cout << "Deadline: " << deadline_ << endl;
+        cout << "Company: " << company_ << endl;
+    }
 
 private:
     string deadline_;
@@ -34,15 +39,17 @@ private:
 
 class Milestone : public Task {
 public:
-    Milestone(const string& title, const string& description, const string& deadline, const string& company) 
-        : Task(title, description), deadline_(deadline), company_(company) {}
+    Milestone(const string& title, const string& description, const string& dueDate) 
+        : Task(title, description), dueDate_(dueDate) {}
 
-    const string& getDeadline() const { return deadline_; }
-    const string& getCompany() const { return company_; }
+    void printDetails() const override {
+        cout << "Title: " << getTitle() << endl;
+        cout << "Description: " << getDescription() << endl;
+        cout << "Due Date: " << dueDate_ << endl;
+    }
 
 private:
-    string deadline_;
-    string company_;
+    string dueDate_;
 };
 
 class TaskList {
@@ -51,17 +58,7 @@ public:
 
     void printTasks() {
         for (Task* task : tasks_) {
-            cout << "Title: " << task->getTitle() << endl;
-            cout << "Description: " << task->getDescription() << endl;
-
-            if (auto* project = dynamic_cast<Project*>(task)) {
-                cout << "Deadline: " << project->getDeadline() << endl;
-                cout << "Company: " << project->getCompany() << endl;
-            } else if (auto* milestone = dynamic_cast<Milestone*>(task)) {
-                cout << "Deadline: " << milestone->getDeadline() << endl;
-                cout << "Company: " << milestone->getCompany() << endl;
-            }
-
+            task->printDetails();
             cout << endl;
         }
     }
@@ -74,7 +71,7 @@ int main() {
     TaskList taskList;
     taskList.addTask(new Task("Task 1", "Description 1"));
     taskList.addTask(new Project("Project 1", "Project Description", "2023-12-31", "Company A"));
-    taskList.addTask(new Milestone("Milestone 1", "Milestone Description", "2023-11-30", "Company A"));
+    taskList.addTask(new Milestone("Milestone 1", "Milestone Description", "2023-11-30"));
 
     taskList.printTasks();
 
