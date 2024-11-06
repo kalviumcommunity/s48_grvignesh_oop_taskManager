@@ -1,76 +1,87 @@
 #include <iostream>
+#include <vector>
 #include <string>
+
+using namespace std;
 
 class Task {
 public:
-    Task(const std::string& title, const std::string& description)
-        : title_(title), description_(description), isCompleted_(false) {}
+    Task(const string& title, const string& description) : title_(title), description_(description), isCompleted_(false) {}
 
-    const std::string& getTitle() const {
-        return title_;
-    }
-
-    const std::string& getDescription() const {
-        return description_;
-    }
-
-    bool isCompleted() const {
-        return isCompleted_;
-    }
-
-    void markAsCompleted() {
-        isCompleted_ = true;
-    }
+    const string& getTitle() const { return title_; }
+    const string& getDescription() const { return description_; }
+    bool isCompleted() const { return isCompleted_; }
+    void markAsCompleted() { isCompleted_ = true; }
 
 private:
-    std::string title_;
-    std::string description_;
+    string title_;
+    string description_;
     bool isCompleted_;
 };
 
 class Project : public Task {
 public:
-    Project(const std::string& title, const std::string& description, const std::string& deadline, const std::string& company)
+    Project(const string& title, const string& description, const string& deadline, const string& company) 
         : Task(title, description), deadline_(deadline), company_(company) {}
 
-    const std::string& getDeadline() const {
-        return deadline_;
-    }
+    const string& getDeadline() const { return deadline_; }
+    const string& getCompany() const { return company_; }
 
-    const std::string& getCompany() const {
-        return company_;
+private:
+    string deadline_;
+    string company_;
+};
+
+class Milestone : public Task {
+public:
+    Milestone(const string& title, const string& description, const string& deadline, const string& company) 
+        : Task(title, description), deadline_(deadline), company_(company) {}
+
+    const string& getDeadline() const { return deadline_; }
+    const string& getCompany() const { return company_; }
+
+private:
+    string deadline_;
+    string company_;
+};
+
+class TaskList {
+public:
+    void addTask(Task* task) { tasks_.push_back(task); }
+
+    void printTasks() {
+        for (Task* task : tasks_) {
+            cout << "Title: " << task->getTitle() << endl;
+            cout << "Description: " << task->getDescription() << endl;
+
+            if (auto* project = dynamic_cast<Project*>(task)) {
+                cout << "Deadline: " << project->getDeadline() << endl;
+                cout << "Company: " << project->getCompany() << endl;
+            } else if (auto* milestone = dynamic_cast<Milestone*>(task)) {
+                cout << "Deadline: " << milestone->getDeadline() << endl;
+                cout << "Company: " << milestone->getCompany() << endl;
+            }
+
+            cout << endl;
+        }
     }
 
 private:
-    std::string deadline_;
-    std::string company_;
-};
-
-class Milestone : public Task, public Project {
-public:
-    Milestone(const std::string& title, const std::string& description, const std::string& deadline, const std::string& company)
-        : Task(title, description), Project(title, description, deadline, company) {}
+    vector<Task*> tasks_;
 };
 
 int main() {
-    // Create a Task
-    Task task("Task 1", "Description 1");
-    std::cout << "Task Title: " << task.getTitle() << std::endl;
-    std::cout << "Task Description: " << task.getDescription() << std::endl;
+    TaskList taskList;
+    taskList.addTask(new Task("Task 1", "Description 1"));
+    taskList.addTask(new Project("Project 1", "Project Description", "2023-12-31", "Company A"));
+    taskList.addTask(new Milestone("Milestone 1", "Milestone Description", "2023-11-30", "Company A"));
 
-    // Create a Project
-    Project project("Project 1", "Project Description", "2023-12-31", "Company A");
-    std::cout << "Project Title: " << project.getTitle() << std::endl;
-    std::cout << "Project Description: " << project.getDescription() << std::endl;
-    std::cout << "Project Deadline: " << project.getDeadline() << std::endl;
-    std::cout << "Project Company: " << project.getCompany() << std::endl;
+    taskList.printTasks();
 
-    // Create a Milestone
-    Milestone milestone("Milestone 1", "Milestone Description", "2023-11-30", "Company A");
-    std::cout << "Milestone Title: " << milestone.getTitle() << std::endl;
-    std::cout << "Milestone Description: " << milestone.getDescription() << std::endl;
-    std::cout << "Milestone Deadline: " << milestone.getDeadline() << std::endl;
-    std::cout << "Milestone Company: " << milestone.getCompany() << std::endl;
+    // Delete dynamically allocated objects
+    for (Task* task : taskList.tasks_) {
+        delete task;
+    }
 
     return 0;
 }
