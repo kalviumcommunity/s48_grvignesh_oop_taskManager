@@ -63,22 +63,24 @@ public:
         }
     }
 
+    ~TaskList() {
+        for (Task* task : tasks_) {
+            delete task;
+        }
+    }
+
 private:
     vector<Task*> tasks_;
 };
 
 int main() {
     TaskList taskList;
-    taskList.addTask(new Task("Task 1", "Description 1"));
+
+    // Use derived classes instead of Task
     taskList.addTask(new Project("Project 1", "Project Description", "2023-12-31", "Company A"));
-    taskList.addTask(new Milestone("Milestone 1", "Milestone Description", "2023-11-30"));
+    taskList.addTask(new Milestone("Milestone 1", "Milestone Decscription", "2023-11-30"));
 
     taskList.printTasks();
-
-    // Delete dynamically allocated objects
-    for (Task* task : taskList.tasks_) {
-        delete task;
-    }
 
     return 0;
 }
