@@ -84,6 +84,7 @@ int main() {
     taskList.addTask(new Milestone("Milestone 2", "Complete testing", "2024-02-01"));
     taskList.addTask(new Milestone("Documentation Finalization", "Complete the user manual and technical documentation.", "2024-04-20"));
     taskList.addTask(new Milestone("Launch Preparation", "Prepare marketing materials and deployment pipelines for the product launch.", "2024-05-10"));
+    taskList.addTask(new Milestone("rest", "rest for the whole day ", "2024-05-10"));
 
     taskList.printTasks();
 
