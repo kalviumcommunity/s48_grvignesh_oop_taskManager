@@ -79,6 +79,11 @@ int main() {
     // Use derived classes instead of Task
     taskList.addTask(new Project("Project 1", "Project Description", "2023-12-31", "Company A"));
     taskList.addTask(new Milestone("Milestone 1", "Milestone Decscription", "2023-11-30"));
+     // Add Milestone objects
+    taskList.addTask(new Milestone("Milestone 1", "Finish prototype", "2023-11-30"));
+    taskList.addTask(new Milestone("Milestone 2", "Complete testing", "2024-02-01"));
+    taskList.addTask(new Milestone("Documentation Finalization", "Complete the user manual and technical documentation.", "2024-04-20"));
+    taskList.addTask(new Milestone("Launch Preparation", "Prepare marketing materials and deployment pipelines for the product launch.", "2024-05-10"));
 
     taskList.printTasks();
 
